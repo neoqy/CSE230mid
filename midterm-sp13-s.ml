@@ -37,14 +37,24 @@ let rec update2 l i n d =
 
 (********** 3 **********)
 
-let categorize f l =
+(* let categorize f l =
   let base = [] in
   let fold_fn acc elmt =
     let rec update3 l i n d = match l with
     | [] -> if i == 0 then [[n]] else d::(update3 l (i - 1) n d)
     | h::t -> if i == 0 then (h@[n])::t else h::(update3 t (i - 1) n d)
   in update3 acc (f elmt) elmt []
-in List.fold_left fold_fn base l;;
+in List.fold_left fold_fn base l;; *)
+
+(* Use function ith and update2 *)
+
+let categorize f l =
+  let base = [] in
+  let fold_fn acc elmt =
+    let i = (f elmt) in
+    let n = (ith acc i [])@[elmt] in
+    update2 acc i n []
+  in List.fold_left fold_fn base l;;
 
 (* (* TIPS FOR TEST *)
  * Remember 'rec'
